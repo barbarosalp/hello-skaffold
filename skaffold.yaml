@@ -5,11 +5,13 @@ metadata:
   name: "Hello Skaffold"
 
 build:
+  tagPolicy:
+    sha256: {}
   local:
     push: false
   artifacts:
     - image: hello-skaffold
-      context: .
+      context: ./
       jib:
         type: maven
 
