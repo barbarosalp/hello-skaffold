@@ -1,0 +1,28 @@
+apiVersion: skaffold/v2beta13
+kind: Config
+
+metadata:
+  name: "Hello Skaffold"
+
+build:
+  local:
+    push: false
+  artifacts:
+    - image: hello-skaffold
+      context: .
+      jib:
+        type: maven
+
+portForward:
+  - resourceType: service
+    resourceName: hello-skaffold
+    port: 8080
+
+deploy:
+  helm:
+    releases:
+      - name: hello-skaffold
+        chartPath: ./helm/hello-skaffold
+        artifactOverrides:
+          image: hello-skaffold
+
